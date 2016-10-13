@@ -1,8 +1,11 @@
 from Notes import Note
 from Measures import Measure
+from Chords import Chord
+
 
 class ScoreWriter(object):
     def __init__(self):
+        self.diatonic_chords = []
         self.dur_by_denominator = {'4': 480, '8': 240}
         self.dur_per_msr = 0
         self.score = []
@@ -46,3 +49,9 @@ class ScoreWriter(object):
                 elif message.type == 'note_on' and message.time != 0:
                     new_note = Note(True, message.note, message.time)
                     new_measure.add_note(new_note)
+
+    def create_diatonic_chords(self):
+        for i in [1, 2, 3, 4, 5, 6, 7]:
+            new_chord = Chord(self.dur_per_msr)
+            new_chord.generate_chord(i)
+            self.diatonic_chords.append(new_chord)
