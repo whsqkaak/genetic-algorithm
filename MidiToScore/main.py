@@ -1,5 +1,5 @@
 from mido import MidiFile
-from ScoreWriter import *
+from MidiToScore.ScoreWriter import *
 
 # main
 
