@@ -1,6 +1,6 @@
-from MidiToScore.Notes import Note
-from MidiToScore.Measures import Measure
-from MidiToScore.Chords import Chord
+from MidiToScore.src.Notes import *
+from MidiToScore.src.Measures import *
+from MidiToScore.src.Chords import *
 
 
 class ScoreWriter(object):
@@ -9,7 +9,7 @@ class ScoreWriter(object):
         self.dur_by_denominator = {'4': 480, '8': 240}
         self.dur_per_msr = 0
         self.score = []
-        self.time_sign = {}
+        self.time_sign = {};
 
     def scr_print(self):
         for measure in self.score:
@@ -24,7 +24,7 @@ class ScoreWriter(object):
                 if message.type == 'time_signature':
                     self.time_sign['denominator'] = message.denominator
                     self.time_sign['numerator'] = message.numerator
-                    break
+                    break;
             dur_of_denominator = self.dur_by_denominator[str(self.time_sign['denominator'])]
             self.dur_per_msr = self.time_sign['numerator'] * dur_of_denominator
             # 마디 생성

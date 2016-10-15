@@ -1,10 +1,10 @@
 from mido import MidiFile
-from MidiToScore.ScoreWriter import *
+from src.ScoreWriter import *
 
 # main
 
 # 미디 파일 읽음
-midi = MidiFile('C:/Users/JmirS/Documents/Python_workspace/midoTest/midiFile/test.mid')
+midi = MidiFile('C:/Users/JmirS/Documents/Python_workspace/midoTest/midiFile/MidiToScore.mid')
 
 # ScoreWriter 객체 생성
 score = ScoreWriter()

@@ -1,4 +1,4 @@
-from MidiToScore.Notes import Note
+from MidiToScore.src.Notes import Note
 
 
 class Chord(object):
