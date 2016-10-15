@@ -1,6 +1,6 @@
 from MidiToScore.Notes import Note
 from MidiToScore.Measures import Measure
-from Chords import Chord
+from MidiToScore.Chords import Chord
 
 
 class ScoreWriter(object):
