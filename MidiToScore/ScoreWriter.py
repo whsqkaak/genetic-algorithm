@@ -1,6 +1,6 @@
-from MidiToScore.src.Notes import *
-from MidiToScore.src.Measures import *
-from MidiToScore.src.Chords import *
+from MidiToScore.Chords import *
+from MidiToScore.Notes import *
+from MidiToScore.Measures import *
 
 
 class ScoreWriter(object):
