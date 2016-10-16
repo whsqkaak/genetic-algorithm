@@ -1,10 +1,9 @@
 from mido import MidiFile
 from MidiToScore.ScoreWriter import *
-
 # main
 
 # 미디 파일 읽음
-midi = MidiFile('C:/Users/JmirS/Documents/Python_workspace/midoTest/midiFile/MidiToScore.mid')
+midi = MidiFile('')
 
 # ScoreWriter 객체 생성
 score = ScoreWriter()
@@ -17,3 +16,4 @@ score.write(midi)
 # score.create_diatonic_chords()
 # for chord in score.diatonic_chords:
 #     chord.chord_print()
+
