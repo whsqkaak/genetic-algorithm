@@ -1,11 +1,13 @@
-from MidiToScore.Chords import *
-from MidiToScore.Notes import *
+from mido import MetaMessage
+
 from MidiToScore.Measures import *
+from MidiToScore.Chords import *
 
 
 class ScoreWriter(object):
     def __init__(self):
         self.diatonic_chords = []
+        self.meta_message = []
         self.dur_by_denominator = {'4': 480, '8': 240}
         self.dur_per_msr = 0
         self.score = []
@@ -19,14 +21,18 @@ class ScoreWriter(object):
         for i, track in enumerate(midi.tracks):
             # 트랙 정보 출력
             print('Track {} : {}'.format(i, track.name))
+
+            # Meta message 들은 나중에 score -> midi 변환을 위해 meta_message 리스트에 저장
             for message in track:
-                # 곡의 박자 저장
-                if message.type == 'time_signature':
-                    self.time_sign['denominator'] = message.denominator
-                    self.time_sign['numerator'] = message.numerator
-                    break
+                if isinstance(message, MetaMessage):
+                    # 곡의 박자 저장
+                    if message.type == 'time_signature':
+                        self.time_sign['denominator'] = message.denominator
+                        self.time_sign['numerator'] = message.numerator
+                    self.meta_message.append(message)
             dur_of_denominator = self.dur_by_denominator[str(self.time_sign['denominator'])]
             self.dur_per_msr = self.time_sign['numerator'] * dur_of_denominator
+
             # 마디 생성
             new_measure = Measure()
             for message in track:
