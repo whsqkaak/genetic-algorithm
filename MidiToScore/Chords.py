@@ -38,7 +38,7 @@ class Chord(object):
             self.notes.append(Note(False, 62, self.chord_duration))
             self.notes.append(Note(False, 65, self.chord_duration))
 
-    def chord_print(self):
+    def print_chord(self):
         print('chord_num: %d' % self.chord_num)
         print('chord_dur: %d' % self.chord_duration)
         print('chord')

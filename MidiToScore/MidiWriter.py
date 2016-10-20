@@ -1,9 +1,9 @@
-from mido import Message, MidiFile, MidiTrack
+from mido import Message, MidiTrack
 
 
 class MidiWriter(object):
     def __init__(self, midi_file):
-        self.mid = MidiFile(midi_file)
+        self.mid = midi_file
         self.track_of_chords = MidiTrack()
 
     def write(self, score_writer):
@@ -14,7 +14,7 @@ class MidiWriter(object):
             if message.type == 'end_of_track':
                 break
             self.track_of_chords.append(message)
-        for i, measure in enumerate(score_writer.score):
+        for measure in score_writer.score:
             chord = measure.chord
             for note in chord.notes:
                 pitch = note.octave * 12 + note.pitch
@@ -22,7 +22,10 @@ class MidiWriter(object):
                 if chord.notes.index(note) != 0:
                     self.track_of_chords.append(Message('note_on', note=pitch, time=0))
                 else:
-                    self.track_of_chords.append(Message('note_on', note=pitch, time=i * duration))
+                    if score_writer.score.index(measure) != 0:
+                        self.track_of_chords.append(Message('note_on', note=pitch, time=duration))
+                    else:
+                        self.track_of_chords.append(Message('note_on', note=pitch, time=0))
         self.track_of_chords.append(score_writer.meta_message[3])
 
     def save(self, path):

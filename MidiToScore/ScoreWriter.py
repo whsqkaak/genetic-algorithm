@@ -1,7 +1,7 @@
 from mido import MetaMessage
 
-from MidiToScore.Measures import *
 from MidiToScore.Chords import *
+from MidiToScore.Measures import *
 
 
 class ScoreWriter(object):
@@ -15,7 +15,7 @@ class ScoreWriter(object):
 
     def scr_print(self):
         for measure in self.score:
-            measure.msr_print()
+            measure.print_msr()
 
     def write(self, midi):
         for i, track in enumerate(midi.tracks):
