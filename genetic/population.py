@@ -5,11 +5,12 @@ import random
 class Population(object):
 	def __init__(self, scorewriter):
 		self.scorewriter = scorewriter  # 생성 시 ScoreWriter 객체를 필드로 받아옴
-	
+		n = 100  # 개체군의 크기
+		
 	def population(self):
 		# 초기 해집단 생성하는 함수
+		n = self.n
 		s = self.scorewriter.score
-		n = 100  # 개체군의 크기
 		pop = [n][len(s) * 2]  # 개체군
 		for i in range(n):
 			for j in range(len(s)):

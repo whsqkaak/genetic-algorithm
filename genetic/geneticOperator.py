@@ -3,15 +3,13 @@ import random
 
 # 유전 알고리즘 연산자 클래스
 class GeneticOperator(object):
-	def __init__(self, fitness):
-		self.fitness = fitness
+	def __init__(self, pop):
+		self.pop = pop
 		
-	def select(self, pops):
+	@staticmethod
+	def select(fit_list):
 		# 선택 연산자
-		fitness_list = []
-		for pop in pops:
-			fitness_list.append(self.fitness.fitness(pop))
-		select_list = GeneticOperator.make_select_list(fitness_list)
+		select_list = GeneticOperator.make_select_list(fit_list)
 		parent = []
 		parent[0] = random.choice(random.choice(select_list))
 		parent[1] = random.choice(random.choice(select_list))
@@ -47,10 +45,9 @@ class GeneticOperator(object):
 				off_spring[i] = parent_2[i]
 		return off_spring
 	
-	@staticmethod
 	def mutation(self, off_spring):
 		# 변이 연산자
 		p = 15  # 변이 확률 (0 ~ 100 사이의 상수)
 		for i in range(len(off_spring)):
 			if random.randrange(0, 101) < p:  # 변이 발생
-				off_spring[i] = random.choice(self.scorewriter.diatonic_chords)
+				off_spring[i] = random.choice(self.pop.scorewriter.diatonic_chords)

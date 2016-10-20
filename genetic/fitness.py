@@ -4,7 +4,7 @@ from MidiToScore.Chords import Chord
 # 적응도 클래스
 class Fitness(object):
 	def __init__(self, pop):
-		self.pop = pop
+		self.pop = pop  # Population 객체를 인수로 받음
 		
 	def fitness(self, chord_list):
 		# 적응도 함수
