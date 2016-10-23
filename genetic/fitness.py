@@ -12,42 +12,43 @@ class Fitness(object):
 		fit = 30
 		f_chord = [4, 7, 7, 8, 8, 5, 5]  # 적응도 함수 요인별 적응도 가중치, 임의
 		rate = self.rate_chord_num_1()  # 3. 반 종지 코드를 위한 비율
-		for i in range(len(chord_list)):
-			# 			1. 화성음의 비율
-			for note in score[i / 2].measure:
-				if self.pop.is_harmonic(chord_list, note):
-					fit += f_chord[0] * note.duration
+		for i in range(len(chord_list)-1, 1):
+			if chord_list[i] is not None and chord_list[i-1] is not None and chord_list[i+1] is not None:
+				# 			1. 화성음의 비율
+				for note in score[i // 2].measure:
+					if self.pop.is_harmonic(chord_list[i], note):
+						fit += f_chord[0] * note.duration
+					
+					# 			2. 종지 코드
+				if i == len(chord_list) and chord_list[i].chord_num == 1:
+					fit += f_chord[1]
 				
-				# 			2. 종지 코드
-			if i == len(chord_list) and chord_list[i].chord_num == 1:
-				fit += f_chord[1]
-			
-			# 3. 반 종지 코드
-			if rate >= 0.75:
-				if i != len(chord_list) and chord_list[i].chord_num == 1:
-					fit -= f_chord[2]
-				
-				#				4. 불안정한 / 안정적인 코드 진행
-			if not (i == 0):  # 맨 처음과 마지막 경우 제외
-				# 	불안정한 코드 진행
-				if self.is_stable_chord(chord_list, i) == 2:
-					fit -= f_chord[3]
-				# 안정적인 코드 진행
-				if self.is_stable_chord(chord_list, i) == 1:
-					fit += f_chord[4]
-				
-				# 				5. 코드 간격
-			if not (i == 0 or i == len(chord_list) - 1):
-				dist_1 = chord_list[i].chord_num - chord_list[i - 1].chord_num
-				dist_2 = chord_list[i + 1].chord_num - chord_list[i].chord_num
-				if (dist_1 == 0 and dist_2 == 0) or (dist_1 == 1 and dist_2 == 1):
-					fit -= f_chord[5]
+				# 3. 반 종지 코드
+				if rate >= 0.75:
+					if i != len(chord_list) and chord_list[i].chord_num == 1:
+						fit -= f_chord[2]
+					
+					#				4. 불안정한 / 안정적인 코드 진행
+				if not (i == 0):  # 맨 처음과 마지막 경우 제외
+					# 	불안정한 코드 진행
+					if self.is_stable_chord(chord_list, i) == 2:
+						fit -= f_chord[3]
+					# 안정적인 코드 진행
+					if self.is_stable_chord(chord_list, i) == 1:
+						fit += f_chord[4]
+					
+					# 				5. 코드 간격
+				if not (i == 0 or i == len(chord_list) - 1):
+					dist_1 = chord_list[i].chord_num - chord_list[i - 1].chord_num
+					dist_2 = chord_list[i + 1].chord_num - chord_list[i].chord_num
+					if (dist_1 == 0 and dist_2 == 0) or (dist_1 == 1 and dist_2 == 1):
+						fit -= f_chord[5]
 		
 		# 6. 반복 마디
 		i = 0
-		while i < len(chord_list):
+		while i < len(score):
 			j = i
-			while j < len(chord_list):
+			while j < len(score):
 				if (score[i] == score[j]) or (score[i] == score[j + 1]) or (score[i + 1] == score[j]) or \
 						(score[i + 1] == score[j + 1]):
 					if chord_list[i] == chord_list[j]:

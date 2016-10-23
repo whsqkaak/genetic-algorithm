@@ -10,7 +10,7 @@ class GeneticOperator(object):
 	def select(fit_list):
 		# 선택 연산자
 		select_list = GeneticOperator.make_select_list(fit_list)
-		parent = []
+		parent = [0, 0]
 		parent[0] = random.choice(random.choice(select_list))
 		parent[1] = random.choice(random.choice(select_list))
 		return parent
@@ -26,6 +26,11 @@ class GeneticOperator(object):
 		for i in range(len(fitness_list)):
 			j = 0
 			while j < fitness_list[i]:
+				j += 1
+			tmp_list.append([0 for _ in range(j)])
+		for i in range(len(fitness_list)):
+			j = 0
+			while j < fitness_list[i]:
 				tmp_list[i][j] = i
 				j += 1
 		return tmp_list
@@ -33,7 +38,7 @@ class GeneticOperator(object):
 	@staticmethod
 	def cross(parent_1, parent_2):
 		# 교차 연산자
-		off_spring = []  # 자식 염색체 (코드 리스트)
+		off_spring = [0 for _ in range(len(parent_1))]  # 자식 염색체 (코드 리스트)
 		p = 50  # 교차 확률 (0 ~ 100 사이의 상수)
 		is_parent_1 = 1  # 교차 시 어떤 부모의 염색체를 가져올지 판단하는 변수
 		for i in range(len(parent_1)):

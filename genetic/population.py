@@ -11,8 +11,7 @@ class Population(object):
 		# 초기 해집단 생성하는 함수
 		n = self.n
 		s = self.scorewriter.score
-		# pop = [n][len(s) * 2]  # 개체군  # org
-		pop = [[0 for col in range(len(s))] for row in range(n)]  # 개체군
+		pop = [[0 for _ in range(len(s)*2)] for _ in range(n)]  # 개체군
 		for i in range(n):
 			for j in range(len(s)):
 				c = random.choice(self.scorewriter.diatonic_chords)  # 임의의 다이아토닉 코드
@@ -28,7 +27,7 @@ class Population(object):
 	@staticmethod
 	def is_harmonic(chord, note):
 		# 화성음인지 아닌지 판별하는 함수
-		if not note.is_rest:
+		if not note.is_rest and chord is not None:
 			for i in chord.notes:
 				if i.pitch == note.pitch:
 					return True

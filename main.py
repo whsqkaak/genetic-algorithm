@@ -8,7 +8,7 @@ from genetic.population import *
 # main
 
 # 미디 파일 읽음
-midi = MidiFile('C:/Users/JmirS/Desktop/test.mid')
+midi = MidiFile('test.mid')
 
 # ScoreWriter 객체 생성
 score_writer = ScoreWriter()
@@ -24,8 +24,8 @@ score_writer.create_diatonic_chords()
 #     chord.print_chord()
 
 # 유전 알고리즘을 사용해 코드 리스트 생성
-population = Population(score_writer).population()
-chords = GeneticAlgorithm(population)
+population = Population(score_writer)
+chords = GeneticAlgorithm(population).algorithm()
 
 # # 테스트용 코드 measure 에 삽입
 # for i, measure in enumerate(score_writer.score):
@@ -41,7 +41,7 @@ for i, measure in enumerate(score_writer.score):
 # MidiWriter 객체 생성
 midi_writer = MidiWriter(midi)
 midi_writer.write(score_writer)
-midi_writer.save('C:/Users/JmirS/Desktop/result.mid')
+midi_writer.save('result.mid')
 
 # # Pygame mixer 모듈 초기화
 # pygame.mixer.init()
