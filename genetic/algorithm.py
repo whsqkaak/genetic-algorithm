@@ -28,4 +28,4 @@ class GeneticAlgorithm(object):
 				self.operator.mutation(off_spring)
 				off_spring_list.append(off_spring)
 			pop = off_spring_list
-		return pop
+		return pop[0]
