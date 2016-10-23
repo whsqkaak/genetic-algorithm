@@ -1,10 +1,10 @@
 from mido import MidiFile
 
-from MidiToScore.ScoreWriter import *
 from MidiToScore.MidiWriter import *
-import pygame
+from MidiToScore.ScoreWriter import *
 
-
+from genetic.algorithm import *
+from genetic.population import *
 # main
 
 # 미디 파일 읽음
@@ -23,12 +23,20 @@ score_writer.create_diatonic_chords()
 # for chord in score_writer.diatonic_chords:
 #     chord.print_chord()
 
-# 테스트용 코드 measure 에 삽입
+# 유전 알고리즘을 사용해 코드 리스트 생성
+population = Population(score_writer).population()
+chords = GeneticAlgorithm(population)
+
+# # 테스트용 코드 measure 에 삽입
+# for i, measure in enumerate(score_writer.score):
+#     if i is 2:
+#         measure.add_chord(score_writer.diatonic_chords[1])
+#     else:
+#         measure.add_chord(score_writer.diatonic_chords[0])
+
+# 유전 알고리즘을 사용하여 만든 코드를 마디마다 삽입
 for i, measure in enumerate(score_writer.score):
-    if i is 2:
-        measure.add_chord(score_writer.diatonic_chords[1])
-    else:
-        measure.add_chord(score_writer.diatonic_chords[0])
+    measure.add_chord(chords[i])
 
 # MidiWriter 객체 생성
 midi_writer = MidiWriter(midi)
