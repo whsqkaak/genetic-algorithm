@@ -42,14 +42,3 @@ for i, measure in enumerate(score_writer.score):
 midi_writer = MidiWriter(midi)
 midi_writer.write(score_writer)
 midi_writer.save('result.mid')
-
-# # Pygame mixer 모듈 초기화
-# pygame.mixer.init()
-#
-# # 미디 파일을 로드하여 재생할 준비
-# pygame.mixer.music.load('C:/Users/JmirS/Desktop/test.mid')
-# # 재생
-# pygame.mixer.music.play()
-# # 재생 중 프로그램 종료를 방지
-# while pygame.mixer.music.get_busy():
-#     pygame.time.wait(1000)
