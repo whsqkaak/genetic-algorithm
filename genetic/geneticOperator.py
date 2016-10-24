@@ -39,7 +39,7 @@ class GeneticOperator(object):
 	def cross(parent_1, parent_2):
 		# 교차 연산자
 		off_spring = [0 for _ in range(len(parent_1))]  # 자식 염색체 (코드 리스트)
-		p = 50  # 교차 확률 (0 ~ 100 사이의 상수)
+		p = 40  # 교차 확률 (0 ~ 100 사이의 상수)
 		is_parent_1 = 1  # 교차 시 어떤 부모의 염색체를 가져올지 판단하는 변수
 		for i in range(len(parent_1)):
 			if random.randrange(0, 101) < p:  # 교차 발생
@@ -52,7 +52,7 @@ class GeneticOperator(object):
 	
 	def mutation(self, off_spring):
 		# 변이 연산자
-		p = 15  # 변이 확률 (0 ~ 100 사이의 상수)
+		p = 10  # 변이 확률 (0 ~ 100 사이의 상수)
 		for i in range(len(off_spring)):
 			if random.randrange(0, 101) < p:  # 변이 발생
 				off_spring[i] = random.choice(self.pop.scorewriter.diatonic_chords)
